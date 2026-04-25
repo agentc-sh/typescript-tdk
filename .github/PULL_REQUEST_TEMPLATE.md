@@ -3,7 +3,7 @@ Please read this!
 
 Before opening a new pull request, make sure to search existing pull requests:
 
-- https://github.com/wizrds/ci-testing-ts/pulls
+- https://github.com/agentc-sh/typescript-tdk/pulls
 
 and verify the pull request you're about to submit isn't a duplicate.
 --->
