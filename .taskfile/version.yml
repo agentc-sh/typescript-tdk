@@ -25,7 +25,7 @@ tasks:
         fi
         echo $NEXT
 
-  update:nodejs:single:
+  update:package:
     desc: Update the version in a single Node.js package
     cmds:
       - |
@@ -42,7 +42,7 @@ tasks:
           exit 1
         fi
 
-        sed -i "/^\s*"version": ".*",/c\"version\": \"$NEXT_VERSION\"," $VERSION_FILE
+        sed -i "s/\"version\": *\"[^\"]*\"/\"version\": \"$NEXT_VERSION\"/" $VERSION_FILE
         echo $VERSION_FILE
 
   changelog:
@@ -73,7 +73,7 @@ tasks:
         git-cliff --offline --no-exec -o CHANGELOG.md --tag $NEXT_VERSION || true
         echo "CHANGELOG.md" > .modified_files
 
-        task version:update:nodejs:single NEXT_VERSION="$NEXT_VERSION" VERSION_FILE="package.json" >> .modified_files
+        task version:update:package NEXT_VERSION="$NEXT_VERSION" VERSION_FILE="package.json" >> .modified_files
 
         while read -r file; do
           [ -f "$file" ] && echo "Adding $file to git staging" && git add "$file"
